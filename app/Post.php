@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'body'
+        'title', 'body', 'published'
     ];
 
     // samo ova polja ja rucno popunjavam
@@ -19,12 +19,17 @@ class Post extends Model
 
     public static function published() 
     {
-        return self::where('published', 1)->get();
+        return self::where('published', 1)->orderBy('created_at', 'desc')->get();
     }
 
     public static function draft() 
     {
-        return self::where('published', 0)->get();
+        return self::where('published', 0)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function comments() 
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

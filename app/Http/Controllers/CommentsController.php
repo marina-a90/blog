@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\Comment;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +13,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // $posts = Post::all();
-        $posts = Post::published();
-        // return view('posts.index', compact('posts' => $posts));
-        return view('posts.index', compact('posts'));
+        $comments = Commment::all();
+        return view('posts.show', compact('comments'));
     }
 
     /**
@@ -28,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.show');
     }
 
     /**
@@ -37,15 +33,18 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
+        $post = Post::findOrFail($request->post_id);
+
         $request->validate([
-            'title' => 'required|min:5',
-            'body' => 'required'
+            // 'post_id' => 'required',
+            'author' => 'required',
+            'comment' => 'required'
         ]);
 
-        Post::create($request->all());
-        return redirect('/posts');
+        Comment::create($request->all());
+        return redirect('/posts.show');
     }
 
     /**
@@ -54,11 +53,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    public function show(Post $post)
+    public function show($id)
     {
-        // $post = Post::findOrFail($id);
-        return view('posts.show', compact('post'));
+        //
     }
 
     /**
@@ -94,20 +91,4 @@ class PostsController extends Controller
     {
         //
     }
-
-    public function addComment(Request $request, $id) 
-    {
-        Comment::create([
-            'post_id' => $id,
-            'author' => $request->author,
-            'text' => $request->text
-        ]);
-
-        return redirect()->back();
-
-        // Post::findOrFail($id)
-        // ->comments
-        // ->create(request->all());
-    }
-
 }

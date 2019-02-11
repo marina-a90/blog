@@ -27,3 +27,6 @@ Route::resource('posts', 'PostsController');
 
 // Route::get('posts', 'PostsController@index');
 // Route::get('posts/{id}', 'PostsController@show');
+
+//nova ruta za komentare
+Route::post('posts/{id}/comments', 'PostsController@addComment')->name('posts.comment');
