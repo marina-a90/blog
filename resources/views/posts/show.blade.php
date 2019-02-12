@@ -37,19 +37,22 @@
                   id="text"
                   name="author"
                   type="text"
-                  class="form-control"
+                  class="form-control {{ $errors->has('author') ? 'is-invalid' : '' }}" 
+                  value="{{ old('author') }}"
                 />
               </div>
+              @include('partials.invalid-feedback', ['field' => 'author'])
         
               <div class="form-group row m-4">
-                <label for="textarea" class="col-4 col-form-label">Content</label>
+                <label for="textarea" class="col-4 col-form-label">Comment</label>
                 <textarea
                   id="textarea"
                   name="text"
                   cols="40"
                   rows="5"
-                  class="form-control"></textarea>
+                  class="form-control {{ $errors->has('text') ? 'is-invalid' : '' }}">{{ old('text') }}</textarea>
               </div>
+              @include('partials.invalid-feedback', ['field' => 'text'])
 
               <div class="form-group row">
                     <div class="offset-4 col-8">
