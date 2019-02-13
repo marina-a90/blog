@@ -11,9 +11,15 @@
 |
 */
 
+Route::get('/register', ['as' => 'show-register', 'uses' => 'RegisterController@create']);
+
+Route::post('/register', 'RegisterController@store')->name('register');
+
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
 
 // Route::get('posts', function() {
 //     return view('posts.index');
