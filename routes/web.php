@@ -15,6 +15,8 @@ Route::get('/register', ['as' => 'show-register', 'uses' => 'RegisterController@
 
 Route::post('/register', 'RegisterController@store')->name('register');
 
+Route::get('logout', 'LoginController@logout')->name('logout');
+
 
 Route::get('/', function () {
     return view('welcome');
