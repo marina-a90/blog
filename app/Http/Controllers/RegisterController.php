@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+// use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -20,12 +21,15 @@ class RegisterController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        User::create($request->only([
+        $data = $request->only([
             'email', 'name', 'password'
-        ]));
+        ]);
 
-        return redirect(route('home'));
+        $data['password'] = bcrypt($data['password']);
 
-        // request()->only(['email', 'name', 'password']);
+        User::create($data);
+
+        return redirect()->route('posts.index');
+
     }
 }
