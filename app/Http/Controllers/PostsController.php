@@ -9,6 +9,12 @@ use App\Http\Requests\CreateCommentRequest;
 
 class PostsController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth', ['only' => ['create', 'store']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +51,15 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
 
-        Post::create($request->all());
+        $post = Post::create(
+            array_merge(
+                request()->all(),
+                ['user_id' => auth()->user()->id ]
+            )
+        );
+
+        // Post::create($request->all()); ///menjam ovo
+        
         return redirect('/posts');
     }
 

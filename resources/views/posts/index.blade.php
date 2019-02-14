@@ -32,6 +32,11 @@
                     </p>
       
                     <p>{{ $post->body }}</p>
+
+                    @if($post->user)
+                      <p>Created by {{ $post->user->name }}</p>
+                    @endif
+                    
                 </div><!-- /.blog-post -->
             @endforeach
       
