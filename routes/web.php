@@ -31,6 +31,15 @@ Route::group(['middleware' => ['guest']], function() {
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
 
+Route::group(
+    ['middleware' => ['auth'] ],
+    function() {
+        Route::get('/my-posts', 'UserPostsController@index')
+        ->name('my-posts');
+    }
+);
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
