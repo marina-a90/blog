@@ -19,6 +19,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email', // email mora biti unique - proverava u users tabeli, kolonu email
             'name' => 'required',
             'password' => 'required|min:6',
+            'age' => 'required|integer|min:1'
         ]);
 
         $data = $request->only([
