@@ -19,7 +19,7 @@ class Post extends Model
 
     public static function published() 
     {
-        return self::where('published', 1)->orderBy('created_at', 'desc')->get();
+        return self::where('published', 1)->orderBy('created_at', 'desc');
     }
 
     public static function draft() 
