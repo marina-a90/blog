@@ -23,8 +23,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // $posts = Post::all();[
-        $posts = Post::published()->paginate(10);
+        // $posts = Post::all();
+
+        // $posts = Post::published()->paginate(10);                    // lazy load, nije najbolje resenje
+        $posts = Post::with('user')->paginate(10);                     // WITH je bolje resenje, optimizovano
+
         // return view('posts.index', compact('posts' => $posts));
         return view('posts.index', compact('posts'));
     }

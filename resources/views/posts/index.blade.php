@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-md-8 blog-main">
       
-                @foreach($posts as $post)
+                @foreach($posts as $post) 
                   <div class="blog-post">
                     <h2 class="blog-post-title">
                       <a href="/posts/{{ $post->id }}">
@@ -30,7 +30,7 @@
                     <p class="blog-post-meta">{{ $post->created_at->format('d/M/Y') }} 
                       {{-- by <a href="#">Mark</a> --}}
                     </p>
-      
+
                     <p>{{ $post->body }}</p>
 
                     @if($post->user)

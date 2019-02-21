@@ -5,6 +5,22 @@
 
 
 @section('content')
+
+
+
+    @if(count($post->tags))
+    <ul>
+        @foreach($post->tags as $tag)
+        <li>
+            <a href="/posts/tags/{{ $tag->id }}">{{ $tag->name }}</a>
+        </li>
+        @endforeach
+    </ul>
+    @endif
+
+
+
+
     <div>
         <h1>{{ $post->title }}</h1>
         <div>{{ $post->body }}</div>
@@ -42,7 +58,7 @@
                 />
               </div>
               @include('partials.invalid-feedback', ['field' => 'author'])
-        
+
               <div class="form-group row m-4">
                 <label for="textarea" class="col-4 col-form-label">Comment</label>
                 <textarea

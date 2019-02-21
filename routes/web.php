@@ -46,6 +46,10 @@ Route::get('/', function () {
 })->name('home');
 
 
+Route::get('/posts/tags/{tag}', 'TagsController@index');
+// Route::resource('/posts/tags', 'TagsController'); //ne radi!!!!!!!!!!!!!!!!
+
+
 // Route::get('posts', function() {
 //     return view('posts.index');
 // });
