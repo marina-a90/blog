@@ -22,6 +22,18 @@
                 @include('partials.invalid-feedback', ['field' => 'body'])
             </div>
         </div>
+
+        @if(count($tags))
+            <div class="form-group row">
+                <label for="tags[]" class="col-4 col-form-label">Tags</label>
+                <div class="col-8">
+                    @foreach($tags as $tag)
+                        <input type="checkbox" id="tag" name="tags[]" value="{{ $tag->id }}"/>{{ $tag->name }} 
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
         <div class="form-group row">
             <div class="offset-4 col-8">
                 <button type="submit" class="btn btn-primary">Submit</button>

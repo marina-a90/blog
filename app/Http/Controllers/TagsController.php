@@ -29,7 +29,11 @@ class TagsController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tag::all();
+
+        dd($tags);
+
+        return view('posts.create', compact('tags'));
     }
 
     /**

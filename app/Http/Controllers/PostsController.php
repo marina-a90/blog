@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Mail\CommentReceived;
 use App\Http\Requests\CreateCommentRequest;
 
+use App\Tag;
+
 class PostsController extends Controller
 {
 
@@ -25,8 +27,8 @@ class PostsController extends Controller
     {
         // $posts = Post::all();
 
-        // $posts = Post::published()->paginate(10);                    // lazy load, nije najbolje resenje
-        $posts = Post::with('user')->paginate(10);                     // WITH je bolje resenje, optimizovano
+        // $posts = Post::published()->paginate(10);                                                  // lazy load, nije najbolje resenje
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(10);                     // WITH je bolje resenje, optimizovano
 
         // return view('posts.index', compact('posts' => $posts));
         return view('posts.index', compact('posts'));
@@ -39,7 +41,12 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+
+        $tags = Tag::all();
+
+        return view('posts.create', compact('tags'));
+
+        // return view('posts.create');
     }
 
     /**
@@ -52,7 +59,8 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required|min:5',
-            'body' => 'required'
+            'body' => 'required',
+            'tags' => 'required|array'
         ]);
 
         $post = Post::create(
@@ -61,6 +69,8 @@ class PostsController extends Controller
                 ['user_id' => auth()->user()->id ]
             )
         );
+
+        $post->tags()->attach(request('tags'));
 
         // Post::create($request->all()); ///menjam ovo
         
